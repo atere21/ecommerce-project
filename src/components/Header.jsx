@@ -10,7 +10,7 @@ const Header = () => {
     setShowMenu (preve => !preve)
   }
   return (
-    <header className="fixed shadow-md w-full h-16 px-3 md:px-4">
+    <header className="fixed shadow-md w-full h-16 px-3 md:px-4 bg-white z-50 ">
       {/* desktop */}
 
       <div className="flex items-center h-full justify-between ">
@@ -21,36 +21,36 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-4 md:gap-2">
-          <nav className="flex gap-4 md:gap-6 text-base md:text-lg">
-            <Link to={""}>Home</Link>
+          <nav className="flex gap-4 md:gap-6 text-base md:text-lg text-yellow-800 hover:text-yellow-700">
+            <Link to={"/"}>Home</Link>
             <Link to={"menu"}>Menu</Link>
             <Link to={"about"}>About</Link>
             <Link to={"contact"}>Contact</Link>
           </nav>
 
-          <div className="text-2xl text-slate-600 relative ">
-            <BsCart />
+          <div className="text-2xl cursor-pointer text-yellow-800 hover:text-yellow-700 relative ">
+            <BsCart className=""/>
             <div
-              className="absolute -top-2 -right-1 text-white bg-pink-800 h-4  text-center w-4 rounded-full m-0
+              className="absolute -top-1 -right-1 text-white bg-pink-800 h-4  text-center w-4 rounded-full m-0
                    p-0 text-sm "
             >
-              0{" "}
+              <p className="-mt-[2px]">0</p>{" "}
             </div>
           </div>
-          <div className="text-2xl text-slate-600 "onClick={handleShowMenu}>
-            <div className="border-2 border-solid border-slate-700 cursor-pointer  p-2 rounded-full text-sm"
+          <div className="text-2xl text-yellow-800 hover:text-yellow-700"onClick={handleShowMenu}>
+            <div className="border-2 border-solid text-yellow-800 hover:text-yellow-700 cursor-pointer  p-2 rounded-full text-sm"
             >
               <FaUser />
             </div>
 
             {showMenu && (
-              <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow ">
-                <p className="whitespace-nowrap cursor-pointer  text-sm">
+              <div className="absolute right-2 bg-white py-3 px-2 shadow drop-shadow flex flex-col">
+                <Link to={"newproduct"} className="whitespace-nowrap cursor-pointer  text-sm">
                   New Product
-                </p>
-                <p className="whitespace-nowrap cursor-pointer text-sm">
+                </Link>
+                <Link to={"login"} className="whitespace-nowrap cursor-pointer text-sm">
                   Login
-                </p>
+                </Link>
               </div>
             )}
           </div>

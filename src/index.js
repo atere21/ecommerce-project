@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import { Menu } from '@mui/material';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import { Login } from '@mui/icons-material';
+import NewProduct from './pages/NewProduct';
+import Signup from './pages/Signup';
 
 
 const router = createBrowserRouter (
@@ -15,7 +18,10 @@ const router = createBrowserRouter (
       <Route index element={<Home/>} />
       <Route path='menu' element={<Menu/>} />
       <Route path='about' element={<About/>} />
+      <Route path='login' element={<Login/>} />
       <Route path='contact' element={<Contact/>} />
+      <Route path='newproduct' element={<NewProduct/>} />
+      <Route path='signup' element={<Signup/>} />
     </Route>
   )
 )

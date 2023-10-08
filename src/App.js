@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className='' >
       <Header/>
-      <main>
+      <main className='pt-16 bg-slate-100 drop drop-shadow min-h-[calc(100vh)]'>
         <Outlet/>
       </main>
     </div>
