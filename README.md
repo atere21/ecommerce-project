@@ -2,7 +2,12 @@
 
 E-Commerce Website
 # Description
-This is an e-commerce website project built with React, Tailwind CSS, Node.js, and MongoDB. The project aims to create an online platform where users can browse, search, and purchase products conveniently. It includes user authentication, product catalog, shopping cart, and order management features.
+This is an e-commerce website project built with
+## React
+## Tailwind CSS
+## Node.js, and MongoDB. 
+
+## The project aims to create an online platform where users can browse, search, and purchase products conveniently. It includes user authentication, product catalog, shopping cart, and order management features.
 
 
 ## Features
