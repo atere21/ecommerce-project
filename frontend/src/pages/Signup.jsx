@@ -1,79 +1,86 @@
-
 import React, { useState } from 'react';
 import loginimg from '../assets/login-anime.gif';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { ImagetoBase64 } from '../utility/ImagetoBase64';
 
-
 const Signup = () => {
- const navigate = useNavigate ()
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
-    email: '', 
+    email: '',
     password: '',
     confirmPassword: '',
-    image: "",
-
-
+    image: '',
   });
-  console.log(data)
 
   const handleShowPassword = () => {
-    setShowPassword((preve) => !preve);
+    setShowPassword((prev) => !prev);
   };
 
   const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((preve) => !preve);
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setData(( preve) =>{
-      return {
-        ...preve,
-        [name]: value
-      }
-    
-  });
-  }
-
-  const handleUploadProfileImage =async (e)=>{
-    
-    const data = await ImagetoBase64(e.target.files[0])
-    console.log(data)
-    
-    setData((preve) =>{
-      return{
-        ...preve,
-        image: data
-      }
-    })
-  }
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault() // Prevents the form from submitting (you may need to implement form submission logic)
-    // Add your logic to handle form submission, validation, and API calls here
-    const {firstName,email,password,confirmPassword} = data
-    if(firstName && email && password && confirmPassword){
-      if(password === confirmPassword) {
-        alert("successfully signed up")
-        navigate("/login")
-      }
-      
-      else{
-        alert("password and confirm password not equal")
-      }
-    }
-      else{
-        alert("please enter required field")
-      }
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  const handleUploadProfileImage = async (e) => {
+    const data = await ImagetoBase64(e.target.files[0]);
+    setData((prev) => ({
+      ...prev,
+      image: data,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { firstName, email, password, confirmPassword } = data;
+
+    if (firstName && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        try {
+          const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (!fetchData.ok) {
+            console.error('Error:', fetchData.status, fetchData.statusText);
+            const responseText = await fetchData.text();
+            console.error('Response:', responseText);
+            alert('An error occurred while signing up');
+          } else {
+            const dataRes = await fetchData.json();
+            console.log(dataRes);
+            alert('Successfully signed up');
+            navigate('/login');
+          }
+        } catch (error) {
+          console.error('Network error:', error);
+          alert('An error occurred while processing the request');
+        }
+      } else {
+        alert('Password and Confirm Password do not match');
+      }
+    } else {
+      alert('Please fill in all required fields');
+    }
+  };
+
 
 
   return (
