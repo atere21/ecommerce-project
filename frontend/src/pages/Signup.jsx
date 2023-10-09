@@ -66,7 +66,7 @@ const Signup = () => {
           } else {
             const dataRes = await fetchData.json();
             console.log(dataRes);
-            alert('Successfully signed up');
+            alert(dataRes.message);
             navigate('/login');
           }
         } catch (error) {

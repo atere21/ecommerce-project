@@ -47,27 +47,25 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
   console.log(req.body);
   const { email } = req.body;
 
-  userModel.findOne({ email: email }, (err, result) => {
+  try {
+    const result = await userModel.findOne({ email: email });
     console.log(result);
-    console.log(err);
+
     if (result) {
       res.send({ message: "Email is already registered" });
     } else {
       const data = new userModel(req.body);
-      data.save((err) => {
-        if (err) {
-          console.error("Error saving user:", err);
-          res.status(500).send({ message: "Error signing up" });
-        } else {
-          res.send({ message: "Successfully signed up" });
-        }
-      });
+      await data.save();
+      res.send({ message: "Successfully signed up" });
     }
-  });
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).send({ message: "Error signing up" });
+  }
 });
 
 app.listen(PORT, () => console.log("server is running at port : " + PORT));
